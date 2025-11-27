@@ -1,76 +1,77 @@
-# Git + GitHub As A Platform For Reproducible Research 
+# Data and Code for:
 
-## Overview
-This repository sets out the skeleton of an organizational structure used for scientific research. It loosely follows what I have used for several of my research projects and I hope it inspires you to conduct your research in an open, reproducible, and honest manner.
+# "Mosaic brain evolution in woodpeckers and its relationship to extraordinary beak behavior"
 
-## How to Use
-To use this template for your research, fork this repository, change the name
-to something descriptive for your project, and adjust the licensing as you
-see fit.
+## Description
 
-To use this repository for your own research, simply click "Use this template" 
-at the top of this page
+This archive contains the data and R code necessary to reproduce the analyses presented in the manuscript:
 
-> :warning: :warning: :warning: I wouldn't advise forking this repository. As you can only fork a given repository once, there is little utility in forking this repo if you hope to use it again in your future projects :warning: :warning: :warning:
+"**Mosaic brain evolution in woodpeckers and its relationship to extraordinary beak behavior**"
 
-Alternatively, you can clone the repository and restructure as necessary. Via 
-the command line,
+by **Daniel J. Tobiansky, Ghislaine Cardenas-Posada, and Matthew J. Fuxjager**
 
-```
-> git clone git@github.com:gchure/reproducible_research
-```
-## Layout
+The analysis examines the comparative morphology and ecology of the Choroid Plexus (ChP) in Piciformes.
 
-The repository is split into seven main directories, many of which have subdirectories. This structure has been designed to be easily navigable by humans and computers alike, allowing for rapid location of specific files and instructions. Within each directory is a `README.md` file which summarizes the purpose of that directory as well as some examples where necessary. This structure may not be perfect for your intended us and may need to be modified. Each section is briefly described below. 
+## Contents
 
-### **`experiments`** 
-Where all of the experimental information lives, including any *executed* code. lives. This includes pipelines, scripts, and figure files. 
- * **`processing`**: Any code used to *transform* the data into another type should live here. This can include everything from parsing of text data, image segmentation/filtering, or simulations.
- * **`analysis`**: Any code to to *draw conclusions* from an experiment or data set. This may include regression, dimensionality reduction, or calculation of various quantities.
- * **`exploratory`**: A sandbox where you keep a record of your different approaches to transformation, interpretation, cleaning, or generation of data.
- * **`figures`**: Any code used to generate figures for your finished work, presentations, or for any other use.
+### Code
 
-### **`data`** 
-All raw data collected from your experiments as well as copies of the transformed data from your processing code. 
+-   **Piciformes_ChP_Analysis.R**: The main R script that performs all statistical analyses, including:
+    -   Descriptive statistics and T-tests (Shelf-life, Relative ChP Size, Cell Morphology).
+    -   Mixed Model Regression for regional ChP differences.
+    -   Ancestral State Reconstruction (ASR).
+    -   Phylogenetic PCA (pPCA) for Picidae (using 3 trees: Fuxjager 2018, Consensus, Ultrametric) and All Piciformes.
+    -   PGLS models for all 3 trees (Picidae) and All Piciformes, testing relationships between pPCA PC1 and ecological factors (Nesting Substrate, Foraging Method, Habitat, Min Clutch Size, Drum Speed, Drum Length).
+    -   Generation of figures (pPCA Biplot, Correlation Matrix).
 
-### **`miscellaneous`** 
-Files that may not be code, but are important for reproducibility of your findings.
-* **`protocols`**: A well annotated and general description of your experiments. These protocols should be descriptive enough for someone to follow your experiments independently 
-* **`materials`**: Information regarding the materials used in your experiments or data generation. This could include manufacturer information, records of purity, and/or lot and catalog numbers.
-* **`software details`**: Information about your computational environment that are necessary for others to execute your code. This includes details about your operating system, software version and required packages.
+### Data Files
 
-### **`tests`** 
-All test suites for your code. *Any custom code you've written should be thoroughly and adequately tested to make sure you know how it is working.*
+-   **`Data_Specimens.csv`** : Contains detailed specimen information.
+    -   *Columns*: Genus, Species, Common Name, No. specimens, Woodpecker? (yes/no), Family, Tribe, NCBI Taxonomy ID, Continent, Country, State, Year Captured, Month Captured, Shelf-life (yrs), Original mass (g), Brain mass (g), Brain volume (mL), Tarsus length (mm), Culmen length (mm), Tail length (mm), Wingchord (mm), Nest substrate resistance, Foraging method, Minimum clutch_size, Breeding season?, Migratory, Habitat, Drum length, Drum speed, Koppen climate, Cache?, Social structure.
+-   **`Data_Ecology_and_ChP_Size.csv`**: Contains ecological data and ChP size measurements for analysis.
+    -   *Columns*: species, group (picidae/nonpicidae), nest_substrate_resistance, foraging, foraging_method, min_clutch_size, feldging, inc period, breeding, migration, habitat, drum length, drum speed, plv area percent (Posterior Lateral Ventricle area %), 3v area perc (3rd Ventricle area %), alv area perc (Anterior Lateral Ventricle area %), chp to brain area perc (Total ChP area relative to brain), year_caught, mass_g, PC1morph, PC1a2.
+-   **`Data_Cell_Morphology.csv`**: Contains cell morphology data combined with ecological variables.
+    -   *Columns*: species, group, nesting, foraging, Min Clutch size, Migration, habitat, drum length, drum speed, mass_g, body_length_mm, brain_mass_g, brain_volume_mL, PC1a2, v2 (Epithelial Nucleus Area Avg), v5 (Epithelial Cell Eccentricity Avg), v6 (Epithelial Cell Number of Neighbors Avg), v7 (Epithelial Cell Mean Distance Avg), v9 (Epithelial Cell Area Avg), v10 (Epithelial Cell Circularity Avg).
 
-### **`software_module`** 
-Custom code you've written that is *not* executed directly, but is called from files in the `code` directory. If you've written your code in Python, for example, this can be the root folder for your custom software module or simply house a file with all of your functions. 
+### Phylogenetic Trees
 
-### **`templates`** 
-Files that serve as blank templates that document the procedures taken for each experiment, simulation, or analysis routine. 
+-   **`Tree_Piciformes_Expanded_2018.nex`**: Nexus file for the expanded Piciformes tree (2018).
+-   **`Tree_Piciformes_Consensus.nwk`**: Newick file for the consensus Piciformes tree.
+-   **`Tree_Piciformes_Ultrametric.nwk`**: Newick file for the ultrametric tree used in analyses.
+-   **`Tree_Picidae_Pruned_Miles2018.nwk`**: Newick file for the pruned Picidae tree (Miles 2018).
 
-### Required Files
-There are some files which I consider to be mandatory for any project.
+### QuPath Raw Data
 
-1. **`LICENSE`**: A legal protection of your work. *It is important to think deeply about the licensing of your work, and is not a decision to be made lightly. See [this useful site](https://choosealicense.com/) for more information about licensing and choosing the correct license for your project.*
+-   **QuPath_Raw_Data/**: A directory containing the raw output from QuPath analyses.
+    -   Includes `QuPath_Scripts/`: A directory containing the Groovy scripts used for various stages of the analysis:
+        -   `full script.groovy`: Comprehensive script for cell detection, classification, and clustering.
+        -   `preprocessing and cell detect.groovy`: Script for initial preprocessing and cell detection.
+        -   `cell detect and training.groovy`: Script for cell detection and training classifiers.
+        -   `Delaunay clustering.groovy`: Script for performing Delaunay clustering analysis.
+        -   `StarDist nucleus detector.groovy`: Script for nucleus detection using StarDist.
+    -   Includes various `.csv` and `.xlsx` files containing raw cell measurements, annotations, and detections used for the analysis.
 
-2. **`README.md`**: A descriptive yet succinct description of your research project and information regarding the structure outlined below.
+## Instructions for Use
 
-# License Information
+1.  Ensure R is installed on your system.
+2.  Install the required R packages listed in the `0. Setup and Libraries` section of `Piciformes_ChP_Analysis.R`.
+3.  Place all files from this archive into a single directory.
+4.  Open `Piciformes_ChP_Analysis.R` in R or RStudio.
+5.  Set your working directory to the folder containing these files (e.g., `setwd("path/to/folder")`).
+6.  Run the script to reproduce the analyses and generate outputs.
 
-<p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
-  <a rel="license"
-     href="http://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
-  </a>
-  <br />
-  To the extent possible under law,
-  <a rel="dct:publisher"
-     href="github.com/gchure/reproducible_research">
-    <span property="dct:title">Griffin Chure</span></a>
-  has waived all copyright and related or neighboring rights to
-  <span property="dct:title">A template for using git as a platform for reproducible scientific research</span>.
-This work is published from:
-<span property="vcard:Country" datatype="dct:ISO3166"
-      content="US" about="github.com/gchure/reproducible_research">
-  United States</span>.
-</p>
+## System Requirements
+
+### Data Analysis System Requirements
+
+-   R version 4.0 or higher recommended.
+-   Packages: `tidyverse`, `ape`, `phytools`, `geiger`, `caper`, `nlme`, `corrplot`, `sensiPhy`, `moments`, `dplyr`, `forcats`, `ggpubr`, `rstatix`, `multcomp`, `emmeans`, `psych`, `gt`, `knitr`, `kableExtra`, `ggfortify`, `ggalt`.
+-   The code was tested using: R. version 4.5.0
+
+### Image Analysis (QuPath) System Requirements
+
+-   **Software**: QuPath (v0.4.0 or later recommended).
+
+-   **Operating System**: 64-bit Windows, Linux, or macOS (OS X 10.7.4 or later).
+
+-   **Processor**: 64-bit processor (Intel Core i7 or better recommended for optimal performance).
